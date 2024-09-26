@@ -18,7 +18,7 @@ jobs:
     - name: Run Tests
       run: |
         npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome
-        mv ./mocha-awesome-reports ./reports
+        mv /home/runner/work/RestAPI_JS/RestAPI_JS/mochawesome-report ./reports
 
 
       # Archive the MochaAwesome report for sending as an attachment
