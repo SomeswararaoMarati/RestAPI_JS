@@ -12,7 +12,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # Replace with your desired Node.js version
+        node-version: '20'  # Replace with your desired Node.js version
     - name: Install dependencies
       run: npm install
     - name: Run Tests
