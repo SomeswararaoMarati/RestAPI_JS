@@ -16,4 +16,6 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Run Tests
-      run: npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome
+       run: |
+        npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome
+        mv ./mocha-awesome-reports ./reports
