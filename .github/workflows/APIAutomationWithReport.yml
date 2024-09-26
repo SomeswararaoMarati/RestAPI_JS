@@ -16,34 +16,5 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Run Tests
-      run: npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome
-          # Move the report to a specific location if needed
-          mv ./mocha-awesome-reports ./reports
-
-      - name: Upload Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: mocha-awesome-report
-          path: ./reports
-
-      - name: Send Email with Report Link
-        uses: dawidd6/action-send-mail@v3
-        with:
-          # Configure the email settings
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: 'Mocha Awesome Report'
-          body: |
-            Hi Team,
-
-            The Mocha Awesome Report is available at the following link:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            Please check the results.
-
-            Best,
-            Your CI System
-          to: recipient@example.com
-          from: ${{ secrets.EMAIL_FROM }}
+      run: npx mocha --reporter mochawesome
+        
