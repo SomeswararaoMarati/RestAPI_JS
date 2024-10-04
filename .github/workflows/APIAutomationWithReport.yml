@@ -38,7 +38,7 @@ jobs:
         password: ${{ secrets.SMTP_PASSWORD }} # SMTP password stored as a secret
         subject: "MochaAwesome Test Report"
         body: "Please find the attached MochaAwesome test report."
-        from: someswararao.m@gmail.com
+        from: someshforaws@gmail.com
         to:  someswararao.m@gmail.com # Add recipient emails here
         content_type: text/html
         attachments: ./reports/mochawesome.html # Path to your test report file
