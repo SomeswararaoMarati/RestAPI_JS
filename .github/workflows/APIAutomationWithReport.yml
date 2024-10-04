@@ -18,27 +18,5 @@ jobs:
     - name: Run Tests
       run: |
         npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome
-        mv /home/runner/work/RestAPI_JS/RestAPI_JS/mochawesome-report ./reports
-
-
-      # Archive the MochaAwesome report for sending as an attachment
-    - name: Archive test reports
-      uses: actions/upload-artifact@v3
-      with:
-        name: mochaawesome-report
-        path: ./reports/mochawesome.html  # Adjust the path to your actual report file
-
-    # Send the MochaAwesome report via email using SMTP
-    - name: Send email with report
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com # For Gmail, use smtp.gmail.com
-        server_port: 465
-        username: ${{ secrets.SMTP_USERNAME }} # SMTP username stored as a secret
-        password: ${{ secrets.SMTP_PASSWORD }} # SMTP password stored as a secret
-        subject: "MochaAwesome Test Report"
-        body: "Please find the attached MochaAwesome test report."
-        from: someswararao.m@gmail.com
-        to:  someswararao.m@gmail.com # Add recipient emails here
-        content_type: text/html
-        attachments: ./reports/mochawesome.html # Path to your test report file
+        node send-email.js
+     
