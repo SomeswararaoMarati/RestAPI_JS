@@ -8,8 +8,6 @@ class BaseAPI {
   }
 
   async send(method, endpoint, data) {
-    // Log baseURL for debugging purposes (optional)
-
     const url = `${this.baseURL}${endpoint}`;
     console.log(`Complete URL: ${url}`);
 
