@@ -1,4 +1,4 @@
-name: Node and JavaScript Tests
+name: Node and JavaScript Tests.
 
 on:
   push:
