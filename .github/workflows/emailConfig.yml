@@ -1,0 +1,33 @@
+name: Node and JavaScript Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version:  '20'  
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: |
+          npm install --save-dev mocha mochawesome  # Install required test dependencies
+          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome -- --log-level=debug > build.log
+
+      - name: Send build log as email attachment
+        uses: actions/send-mail@v1
+        with:
+          to: someswararao.m@gmail.com  # Replace with your desired email list
+          subject: Build Log for Node.js Tests
+          body: Build log attached.
+          files: build.log
