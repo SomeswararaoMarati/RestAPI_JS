@@ -16,13 +16,16 @@ jobs:
         with:
           node-version: '20'  # Replace with your desired Node.js version
 
+      - name: Create testArtifacts folder
+        run: mkdir testArtifacts
+
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
         run: |
           npm install --save-dev mocha mochawesome
-          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome --reporter-html --reporter-html-output testArtifacts/mocha-report.html
+          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome --reporter-html --reporter-html-output
 
       - name: Upload mochawesome reports
         uses: actions/upload-artifact@v4
