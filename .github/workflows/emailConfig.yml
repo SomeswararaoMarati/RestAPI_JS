@@ -22,13 +22,13 @@ jobs:
       - name: Run tests
         run: |
           npm install --save-dev mocha mochawesome
-          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome --reporter-html --reporter-html-output test-results/mocha-report.html
+          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome --reporter-html --reporter-html-output testArtifacts/mocha-report.html
 
       - name: Upload mochawesome reports
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-reports
-          path: test-results
+          path: testArtifacts
 
       - name: Send email notification
         uses: dawidd6/action-send-mail@v3.6.0
