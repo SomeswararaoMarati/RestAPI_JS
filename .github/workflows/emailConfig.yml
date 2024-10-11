@@ -1,4 +1,4 @@
-name: Node and JavaScript Tests.
+name: Node and JavaScript Tests
 
 on:
   push:
@@ -14,12 +14,12 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version:  '20'  
-          
+          node-version: '20'  # Replace with your desired Node.js version
+
       - name: Install dependencies
         run: npm install
 
-       - name: Run test
+      - name: Run tests
         run: |
           npm install --save-dev mocha mochawesome
           npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome --reporter-html --reporter-html-output test-results/mocha-report.html
@@ -30,15 +30,15 @@ jobs:
           name: mochawesome-reports
           path: test-results
 
-    - name: Send some mail
+      - name: Send email notification
         uses: dawidd6/action-send-mail@v3.6.0
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
           subject: Workflow finished
           body: "Your Postman tests have completed. You can view the results here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           to: someshforaws@gmail.com,smarati@oneplan.ai
           from: Me
-          secure: false
+          secure: false  # Change to true for secure connections (recommended)
