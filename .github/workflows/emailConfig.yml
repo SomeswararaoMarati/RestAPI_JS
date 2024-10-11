@@ -19,15 +19,26 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Tests
+       - name: Run tests
         run: |
-          npm install --save-dev mocha mochawesome  # Install required test dependencies
-          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome -- --log-level=debug > build.log
+          npm install --save-dev mocha mochawesome
+          npx mocha --recursive tests/*.js --timeout 10000 --reporter mochawesome --reporter-html --reporter-html-output test-results/mocha-report.html
 
-      - name: Send build log as email attachment
-        uses: actions/send-mail@v1
+      - name: Upload mochawesome reports
+        uses: actions/upload-artifact@v3
         with:
-          to: someswararao.m@gmail.com  # Replace with your desired email list
-          subject: Build Log for Node.js Tests
-          body: Build log attached.
-          files: build.log
+          name: mochawesome-reports
+          path: test-results
+
+    - name: Send some mail
+        uses: dawidd6/action-send-mail@v3.6.0
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Workflow finished
+          body: "Your Postman tests have completed. You can view the results here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          to: someshforaws@gmail.com,smarati@oneplan.ai
+          from: Me
+          secure: false
